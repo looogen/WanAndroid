@@ -33,7 +33,6 @@ public class SerializableOkHttpCookies implements Serializable {
         out.writeBoolean(cookies.secure());
         out.writeBoolean(cookies.httpOnly());
         out.writeBoolean(cookies.hostOnly());
-        out.writeBoolean(cookies.persistent());
     }
 
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
@@ -45,15 +44,23 @@ public class SerializableOkHttpCookies implements Serializable {
         boolean secure = in.readBoolean();
         boolean httpOnly = in.readBoolean();
         boolean hostOnly = in.readBoolean();
-        boolean persistent = in.readBoolean();
+
         Cookie.Builder builder = new Cookie.Builder();
-        builder = builder.name(name);
-        builder = builder.value(value);
-        builder = builder.expiresAt(expiresAt);
-        builder = hostOnly ? builder.hostOnlyDomain(domain) : builder.domain(domain);
-        builder = builder.path(path);
-        builder = secure ? builder.secure() : builder;
-        builder = httpOnly ? builder.httpOnly() : builder;
-        clientCookies =builder.build();
+        builder.name(name);
+        builder.value(value);
+        builder.expiresAt(expiresAt);
+        builder.path(path);
+        if (hostOnly) {
+            builder.hostOnlyDomain(domain);
+        } else {
+            builder.domain(domain);
+        }
+        if (secure) {
+            builder.secure();
+        }
+        if (httpOnly) {
+            builder.httpOnly();
+        }
+        clientCookies = builder.build();
     }
 }

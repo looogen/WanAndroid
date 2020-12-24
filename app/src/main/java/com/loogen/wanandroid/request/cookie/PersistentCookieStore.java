@@ -25,9 +25,8 @@ import okhttp3.HttpUrl;
 
 /**
  * Cookies 持久化
- *
+ * <p>
  * a {https://blog.csdn.net/zhujiangtaotaise/article/details/88129355}
- *
  */
 public class PersistentCookieStore {
     private static final String TAG = "PersistentCookieStore";
@@ -38,7 +37,7 @@ public class PersistentCookieStore {
     private static PersistentCookieStore mInstance;
 
     public static PersistentCookieStore getInstance() {
-        if(mInstance == null) {
+        if (mInstance == null) {
             mInstance = new PersistentCookieStore(App.getApp());
         }
         return mInstance;
@@ -46,7 +45,7 @@ public class PersistentCookieStore {
 
 
     private PersistentCookieStore(Context context) {
-        cookiePrefs = context.getSharedPreferences(COOKIE_PREFS, 0);
+        cookiePrefs = context.getSharedPreferences(COOKIE_PREFS, Context.MODE_PRIVATE);
         cookies = new HashMap<>();
 
         //将持久化的cookies缓存到内存中 即map cookies
@@ -61,7 +60,7 @@ public class PersistentCookieStore {
                         if (!cookies.containsKey(entry.getKey())) {
                             cookies.put(entry.getKey(), new ConcurrentHashMap<String, Cookie>());
                         }
-                         cookies.get(entry.getKey()).put(name, decodedCookie);
+                        cookies.get(entry.getKey()).put(name, decodedCookie);
                     }
                 }
             }
@@ -72,7 +71,7 @@ public class PersistentCookieStore {
         return cookie.name() + "@" + cookie.domain();
     }
 
-    public synchronized void add(HttpUrl url,List<Cookie> cookieList) {
+    public synchronized void add(HttpUrl url, List<Cookie> cookieList) {
         if (cookieList == null) {
             Log.e(TAG, "add: =======list is null");
             return;
@@ -145,14 +144,12 @@ public class PersistentCookieStore {
 
         if (cookies.containsKey(url.host()) && cookies.get(url.host()).containsKey(name)) {
             cookies.get(url.host()).remove(name);
-
             SharedPreferences.Editor prefsWriter = cookiePrefs.edit();
             if (cookiePrefs.contains(name)) {
                 prefsWriter.remove(name);
             }
             prefsWriter.putString(url.host(), TextUtils.join(",", cookies.get(url.host()).keySet()));
             prefsWriter.apply();
-
             return true;
         } else {
             return false;

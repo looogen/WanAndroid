@@ -1,10 +1,15 @@
 package com.loogen.wanandroid.request;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import com.loogen.wanandroid.App;
 import com.loogen.wanandroid.BuildConfig;
+import com.loogen.wanandroid.request.interceptors.NetWorkCacheInterceptor;
+import com.loogen.wanandroid.request.interceptors.OfflineCacheInterceptor;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -34,13 +39,12 @@ public final class HttpRequestManager {
 
 
     private static OkHttpClient getOkHttpClient() {
-
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-
         builder.readTimeout(20, TimeUnit.SECONDS);
         builder.connectTimeout(20, TimeUnit.SECONDS);
         builder.writeTimeout(20, TimeUnit.SECONDS);
 
+        //自定义拦截器
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         if (BuildConfig.DEBUG) {
             httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -48,7 +52,18 @@ public final class HttpRequestManager {
             httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
         }
         builder.addInterceptor(httpLoggingInterceptor);
+        builder.addNetworkInterceptor(new NetWorkCacheInterceptor());
+        builder.addInterceptor(new OfflineCacheInterceptor());
+
+        //cookie 验证用户身份
         builder.cookieJar(new VerifyCookieJar());
+
+        //缓存
+        File httpCacheDirectory = new File(App.getApp().getCacheDir(), "okhttpCache");
+        int cacheSize = 20 * 1024 * 1024; // 20 MB
+        Cache cache = new Cache(httpCacheDirectory, cacheSize);
+        builder.cache(cache);
+
         return builder.build();
     }
 

@@ -4,9 +4,6 @@ package com.loogen.wanandroid.request.entity;
  * created by loogen on 2020-12-21
  */
 public class HttpResult<T> {
-
-    public static final String TAG = "Base";
-
     private T data;
     private int errorCode;
     private String errorMsg;

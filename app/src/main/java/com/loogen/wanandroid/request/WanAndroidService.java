@@ -48,6 +48,10 @@ public interface WanAndroidService {
     Observable<ResponseBody> favorite();
 
 
+    /**
+     * 积分
+     * @return
+     */
     @GET("lg/coin/list/1/json")
     Observable<ResponseBody> coin();
 
