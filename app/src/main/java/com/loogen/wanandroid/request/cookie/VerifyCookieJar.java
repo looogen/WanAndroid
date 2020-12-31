@@ -1,8 +1,6 @@
-package com.loogen.wanandroid.request;
+package com.loogen.wanandroid.request.cookie;
 
 import android.util.Log;
-
-import com.loogen.wanandroid.request.cookie.PersistentCookieStore;
 
 import java.util.Collections;
 import java.util.List;

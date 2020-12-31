@@ -1,6 +1,12 @@
 package com.loogen.wanandroid.request;
 
+import com.loogen.wanandroid.request.entity.HttpResult;
+import com.loogen.wanandroid.request.entity.LoginData;
+import com.loogen.wanandroid.request.entity.LogoutData;
+import com.loogen.wanandroid.request.entity.RegisterData;
+
 import io.reactivex.Observable;
+import okhttp3.Call;
 import okhttp3.ResponseBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -17,8 +23,7 @@ public interface WanAndroidService {
      */
     @POST("user/login")
     @FormUrlEncoded
-    Observable<ResponseBody> login(@Field("username") String username, @Field("password") String password);
-
+    Observable<HttpResult<LoginData>> login(@Field("username") String username, @Field("password") String password);
 
     /**
      * 注册
@@ -29,7 +34,7 @@ public interface WanAndroidService {
      */
     @POST("user/register")
     @FormUrlEncoded
-    Observable<ResponseBody> register(@Field("username") String username,@Field("password") String password,@Field("repassword") String repassword);
+    Observable<HttpResult<RegisterData>> register(@Field("username") String username, @Field("password") String password, @Field("repassword") String repassword);
 
 
     /**
@@ -37,7 +42,7 @@ public interface WanAndroidService {
      * @return
      */
     @GET("user/logout/json")
-    Observable<ResponseBody> logout();
+    Observable<HttpResult<LogoutData>> logout();
 
 
     /**

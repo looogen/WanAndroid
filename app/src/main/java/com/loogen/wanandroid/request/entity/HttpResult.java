@@ -8,7 +8,6 @@ public class HttpResult<T> {
     private int errorCode;
     private String errorMsg;
 
-
     public T getData() {
         return data;
     }
