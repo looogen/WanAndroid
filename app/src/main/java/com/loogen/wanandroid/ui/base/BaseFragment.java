@@ -33,7 +33,9 @@ public abstract class BaseFragment<V extends ViewDataBinding,VM extends ViewMode
     private ViewModelProvider mActivityProvider;
     private ViewModelProvider.Factory mFactory;
 
-    protected abstract VM initViewModel();
+    protected VM initViewModel(){
+        return null;
+    }
 
     protected abstract DataBindingConfig getDataBindingConfig();
 

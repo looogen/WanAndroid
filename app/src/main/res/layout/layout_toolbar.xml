@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="navIcon"
+            type="Integer" />
+    </data>
+
+    <com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/tool_bar"
+            bindNavIcon="@{navIcon}"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:title="@{title}"
+            app:titleTextColor="@color/gray" />
+    </com.google.android.material.appbar.AppBarLayout>
+</layout>

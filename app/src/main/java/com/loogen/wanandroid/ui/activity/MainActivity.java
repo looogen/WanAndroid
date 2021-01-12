@@ -3,7 +3,6 @@ package com.loogen.wanandroid.ui.activity;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
@@ -22,8 +21,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
     @Override
     protected void init() {
-
-        setSupportActionBar(mViewDataBinding.toolBar);
+        setSupportActionBar(mViewDataBinding.toolbarLayout.toolBar);
+        mViewModel.title.set("Home");
 
         mViewDataBinding.navigationBar.inflateMenu(R.menu.bottom_navigaition);
         mViewDataBinding.navigationBar.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);

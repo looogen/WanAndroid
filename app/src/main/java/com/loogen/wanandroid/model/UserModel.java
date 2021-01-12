@@ -1,8 +1,5 @@
 package com.loogen.wanandroid.model;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-
 import com.loogen.wanandroid.request.HttpRequestManager;
 import com.loogen.wanandroid.request.entity.HttpResult;
 import com.loogen.wanandroid.request.entity.LoginData;

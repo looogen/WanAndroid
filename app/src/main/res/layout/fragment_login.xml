@@ -12,13 +12,13 @@
 
         <variable
             name="click"
-            type="com.loogen.wanandroid.ui.activity.LoginActivity.ClickProxy" />
+            type="com.loogen.wanandroid.ui.fragment.LoginFragment.ClickProxy" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.activity.LoginActivity">
+        tools:context=".ui.activity.AccountActivity">
 
         <LinearLayout
             android:id="@+id/rl_et"
@@ -32,7 +32,7 @@
                 android:id="@+id/username_text_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/login_user_name"
+                android:hint="@string/account_login_user_name"
                 app:boxBackgroundColor="@color/gray"
                 app:errorEnabled="true">
 
@@ -49,7 +49,7 @@
                 android:id="@+id/password_text_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/login_password"
+                android:hint="@string/account_login_password"
                 app:boxBackgroundColor="@color/gray"
                 app:errorEnabled="true">
 
@@ -76,6 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
+                android:onClick="@{(view) -> click.register(view)}"
                 android:text="注册" />
 
             <com.google.android.material.button.MaterialButton
@@ -86,7 +87,7 @@
                 android:layout_marginRight="12dp"
                 android:layout_toStartOf="@id/next_button"
                 android:layout_toLeftOf="@id/next_button"
-                android:onClick="@{() -> click.login()}"
+                android:onClick="@{(view) -> click.login(view)}"
                 android:text="登录" />
         </RelativeLayout>
 

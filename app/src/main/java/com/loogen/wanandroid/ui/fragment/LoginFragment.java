@@ -1,34 +1,41 @@
-package com.loogen.wanandroid.ui.activity;
-
+package com.loogen.wanandroid.ui.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.loogen.wanandroid.BR;
 import com.loogen.wanandroid.R;
-import com.loogen.wanandroid.databinding.ActivityLoginBinding;
-import com.loogen.wanandroid.ui.base.BaseActivity;
+import com.loogen.wanandroid.databinding.FragmentLoginBinding;
+import com.loogen.wanandroid.ui.activity.MainActivity;
+import com.loogen.wanandroid.ui.base.BaseFragment;
 import com.loogen.wanandroid.ui.base.DataBindingConfig;
+import com.loogen.wanandroid.ui.state.AccountViewModel;
 import com.loogen.wanandroid.ui.state.LoginViewModel;
 import com.loogen.wanandroid.ui.state.ShareViewModel;
 
-public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewModel> {
+public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewModel> {
 
-    private static final String TAG = "LoginActivity";
-
-    @Override
-    protected DataBindingConfig getDataBindingConfig() {
-        DataBindingConfig config = new DataBindingConfig(R.layout.activity_login, BR.vm);
-        config.addBindingParam(BR.click, new ClickProxy());
-        return config;
-    }
+    public static final String TAG = "LoginFragment";
 
     @Override
-    protected void init() {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        AccountViewModel accountViewModel = getActivityViewModel(AccountViewModel.class);
+
+        //toolbar
+        accountViewModel.title.set(getString(R.string.account_login_title));
+        accountViewModel.navIcon.set(0);
+
         mViewDataBinding.passwordEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -67,41 +74,42 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
             }
         });
 
-
-        mViewModel.loginData.observe(this, loginData ->{
+        mViewModel.loginData.observe(getViewLifecycleOwner(), loginData -> {
             //设置共享ViewModel
             ShareViewModel shareViewModel = getAppViewModelProvider().get(ShareViewModel.class);
             shareViewModel.setLoginDataValue(loginData);
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            Intent intent = new Intent(mActivity, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         });
-        mViewModel.toastMsgData.observe(this, s -> Toast.makeText(LoginActivity.this,s, Toast.LENGTH_LONG).show());
+
+        mViewModel.toastMsgData.observe(getViewLifecycleOwner(), s -> Toast.makeText(mActivity, s, Toast.LENGTH_LONG).show());
     }
 
+    @Override
+    protected DataBindingConfig getDataBindingConfig() {
+        DataBindingConfig config = new DataBindingConfig(R.layout.fragment_login, BR.vm);
+        config.addBindingParam(BR.click, new ClickProxy());
+        return config;
+    }
 
     public class ClickProxy {
-
-        public void login() {
+        public void login(View view) {
             if (TextUtils.isEmpty(mViewModel.username.getValue())) {
-                mViewDataBinding.usernameTextInput.setError(getString(R.string.login_error_username));
+                mViewDataBinding.usernameTextInput.setError(getString(R.string.account_login_error_username));
                 return;
             }
             if (TextUtils.isEmpty(mViewModel.password.getValue())) {
-                mViewDataBinding.passwordTextInput.setError(getString(R.string.login_error_password));
+                mViewDataBinding.passwordTextInput.setError(getString(R.string.account_login_error_password));
                 return;
             }
             mViewModel.login();
         }
 
-        public void register() {
-
-        }
-
-        public void logout() {
-            mViewModel.logout();
+        public void register(View view) {
+            NavController controller = Navigation.findNavController(view);
+            controller.navigate(R.id.action_loginFragment_to_registerFragment);
         }
     }
-
 
 }

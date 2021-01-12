@@ -3,6 +3,7 @@ package com.loogen.wanandroid.ui.activity;
 
 import android.content.Intent;
 import android.os.Handler;
+import android.widget.Toast;
 
 import com.loogen.wanandroid.R;
 import com.loogen.wanandroid.databinding.ActivityStartupBinding;
@@ -31,10 +32,10 @@ public class StartupActivity extends BaseActivity<ActivityStartupBinding, Startu
             @Override
             public void run() {
                 Intent intent;
-                if (haveLogged()) {
+                if (hasLogged()) {
                     intent = new Intent(StartupActivity.this, MainActivity.class);
                 } else {
-                    intent = new Intent(StartupActivity.this, LoginActivity.class);
+                    intent = new Intent(StartupActivity.this, AccountActivity.class);
                 }
                 startActivity(intent);
                 finish();
@@ -43,7 +44,7 @@ public class StartupActivity extends BaseActivity<ActivityStartupBinding, Startu
     }
 
 
-    private boolean haveLogged() {
+    private boolean hasLogged() {
         HttpUrl httpUrl = new HttpUrl.Builder()
                 .host(Constants.DOMAIN)
                 .scheme("https")

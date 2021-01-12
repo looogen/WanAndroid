@@ -15,24 +15,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.activity.MainActivity">
-
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/app_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent">
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/tool_bar"
-                android:layout_width="match_parent"
-                android:layout_height="?actionBarSize"
-                app:title="@string/navigation_home"
-                app:titleTextColor="@color/gray"/>
-        </com.google.android.material.appbar.AppBarLayout>
-
+        <include
+            android:id="@+id/toolbar_layout"
+            layout="@layout/layout_toolbar"
+            app:title="@{vm.title}"/>
         <FrameLayout
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:defaultNavHost="true"
             app:layout_constraintBottom_toTopOf="@id/navigation_bar"
             app:layout_constraintTop_toBottomOf="@id/app_bar" />
 
