@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,8 +24,7 @@ import com.loogen.wanandroid.App;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-public abstract class BaseFragment<V extends ViewDataBinding,VM extends ViewModel> extends Fragment {
-
+public abstract class BaseFragment<V extends ViewDataBinding, VM extends ViewModel> extends Fragment {
     protected V mViewDataBinding;
     protected VM mViewModel;
     protected AppCompatActivity mActivity;
@@ -33,7 +33,7 @@ public abstract class BaseFragment<V extends ViewDataBinding,VM extends ViewMode
     private ViewModelProvider mActivityProvider;
     private ViewModelProvider.Factory mFactory;
 
-    protected VM initViewModel(){
+    protected VM initViewModel() {
         return null;
     }
 
@@ -62,7 +62,7 @@ public abstract class BaseFragment<V extends ViewDataBinding,VM extends ViewMode
         mViewDataBinding.setLifecycleOwner(this);
 
         //create viewModel
-        mViewModel =  initViewModel();
+        mViewModel = initViewModel();
         if (mViewModel == null) {
             Class modelClass;
             Type type = getClass().getGenericSuperclass();
@@ -72,7 +72,7 @@ public abstract class BaseFragment<V extends ViewDataBinding,VM extends ViewMode
                     mViewModel = (VM) getActivityViewModel(modelClass);
                 } else if (getViewModelStoreScope() == ViewModelScope.APPLICATION_SCOPE) {
                     mViewModel = (VM) getAppViewModelProvider().get(modelClass);
-                } else if (getViewModelStoreScope() == ViewModelScope.FRAGMENT_SCOPE){
+                } else if (getViewModelStoreScope() == ViewModelScope.FRAGMENT_SCOPE) {
                     mViewModel = (VM) getFragmentViewModel(modelClass);
                 } else {
                     throw new IllegalArgumentException("ViewModelStoreScope not support");
@@ -80,7 +80,7 @@ public abstract class BaseFragment<V extends ViewDataBinding,VM extends ViewMode
             }
         }
         if (mViewModel != null) {
-            mViewDataBinding.setVariable(dataBindingConfig.getVmVariableId(),mViewModel);
+            mViewDataBinding.setVariable(dataBindingConfig.getVmVariableId(), mViewModel);
         }
 
         //other
