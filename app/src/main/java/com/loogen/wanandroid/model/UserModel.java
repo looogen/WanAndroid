@@ -6,6 +6,7 @@ import com.loogen.wanandroid.request.entity.HttpResult;
 import com.loogen.wanandroid.request.entity.LoginData;
 import com.loogen.wanandroid.request.entity.LogoutData;
 import com.loogen.wanandroid.request.entity.RegisterData;
+import com.loogen.wanandroid.utils.RxUtil;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -22,10 +23,9 @@ public class UserModel extends BaseModel {
 
 
     // 测试账号"llg","566778889"
-    public void login(String username, String password, DataResult.IResult<LoginData> result) {
+    public void login(String username, String password, Request.IResult<LoginData> result) {
         HttpRequestManager.getWanAndroidService().login(username, password)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxUtil.rxRequestSchedulerHelper())
                 .subscribe(new Observer<HttpResult<LoginData>>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
@@ -35,18 +35,15 @@ public class UserModel extends BaseModel {
                     @Override
                     public void onNext(@NonNull HttpResult<LoginData> httpResult) {
                         if (httpResult.getErrorCode() != 0) {
-                            DataResult.Error error = new DataResult.Error(httpResult.getErrorMsg());
-                            result.onError(error);
+                            result.onError(Request.error(httpResult.getErrorMsg()));
                         } else {
-                            DataResult.Success<LoginData> data = new DataResult.Success<>(httpResult.getData());
-                            result.onSuccess(data);
+                            result.onSuccess(Request.success(httpResult.getData()));
                         }
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        DataResult.Error error = new DataResult.Error(e.getMessage());
-                        result.onError(error);
+                        result.onError(Request.error(e.getMessage()));
                     }
 
                     @Override
@@ -57,7 +54,7 @@ public class UserModel extends BaseModel {
     }
 
 
-    public void register(String username, String password, String repassword, DataResult.IResult<RegisterData> result) {
+    public void register(String username, String password, String repassword, Request.IResult<RegisterData> result) {
         HttpRequestManager.getWanAndroidService().register(username, password, repassword)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -70,18 +67,15 @@ public class UserModel extends BaseModel {
                     @Override
                     public void onNext(@NonNull HttpResult<RegisterData> httpResult) {
                         if (httpResult.getErrorCode() != 0) {
-                            DataResult.Error error = new DataResult.Error(httpResult.getErrorMsg());
-                            result.onError(error);
+                            result.onError(Request.error(httpResult.getErrorMsg()));
                         } else {
-                            DataResult.Success<RegisterData> data = new DataResult.Success<>(httpResult.getData());
-                            result.onSuccess(data);
+                            result.onSuccess(Request.success(httpResult.getData()));
                         }
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        DataResult.Error error = new DataResult.Error(e.getMessage());
-                        result.onError(error);
+                        result.onError(Request.error(e.getMessage()));
                     }
 
                     @Override
@@ -91,7 +85,7 @@ public class UserModel extends BaseModel {
     }
 
 
-    public void logout(DataResult.IResult<LogoutData> result) {
+    public void logout(Request.IResult<LogoutData> result) {
         HttpRequestManager.getWanAndroidService().logout()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -104,18 +98,15 @@ public class UserModel extends BaseModel {
                     @Override
                     public void onNext(@NonNull HttpResult<LogoutData> httpResult) {
                         if (httpResult.getErrorCode() != 0) {
-                            DataResult.Error error = new DataResult.Error(httpResult.getErrorMsg());
-                            result.onError(error);
+                            result.onError(Request.error(httpResult.getErrorMsg()));
                         } else {
-                            DataResult.Success<LogoutData> data = new DataResult.Success<>(httpResult.getData());
-                            result.onSuccess(data);
+                            result.onSuccess(Request.success(httpResult.getData()));
                         }
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        DataResult.Error error = new DataResult.Error(e.getMessage());
-                        result.onError(error);
+                        result.onError(Request.error(e.getMessage()));
                     }
 
                     @Override

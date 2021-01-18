@@ -81,6 +81,7 @@ public class LoginFragment extends BaseFragment<FragmentLoginBinding, LoginViewM
             Intent intent = new Intent(mActivity, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
+            mActivity.finish();
         });
 
         mViewModel.toastMsgData.observe(getViewLifecycleOwner(), s -> Toast.makeText(mActivity, s, Toast.LENGTH_LONG).show());

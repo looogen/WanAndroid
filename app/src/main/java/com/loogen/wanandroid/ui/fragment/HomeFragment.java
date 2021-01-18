@@ -11,21 +11,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.library.baseAdapters.BR;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.chad.library.adapter.base.listener.OnLoadMoreListener;
-import com.chad.library.adapter.base.module.LoadMoreModule;
 import com.loogen.wanandroid.R;
 import com.loogen.wanandroid.base.BaseFragment;
 import com.loogen.wanandroid.base.DataBindingConfig;
-import com.loogen.wanandroid.base.ViewModelScope;
 import com.loogen.wanandroid.databinding.FragmentHomeBinding;
+import com.loogen.wanandroid.model.Request;
+import com.loogen.wanandroid.request.entity.ArticleListData;
 import com.loogen.wanandroid.ui.adapter.HomeArticleAdapter;
 import com.loogen.wanandroid.ui.state.HomeViewModel;
-import com.loogen.wanandroid.ui.state.MainViewModel;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
+
+import java.util.Objects;
 
 /**
  *
@@ -50,33 +50,24 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
         mArticleAdapter = new HomeArticleAdapter(R.layout.item_home_article_list);
         mViewDataBinding.rvArticle.setAdapter(mArticleAdapter);
-        DividerItemDecoration divider = new DividerItemDecoration(mActivity,DividerItemDecoration.VERTICAL);
-        divider.setDrawable(ContextCompat.getDrawable(mActivity,R.drawable.shape_divider));
+        DividerItemDecoration divider = new DividerItemDecoration(mActivity, DividerItemDecoration.VERTICAL);
+        divider.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(mActivity, R.drawable.shape_divider)));
         mViewDataBinding.rvArticle.addItemDecoration(divider);
 
-
-
-        mViewModel.articleList.observe(getViewLifecycleOwner(), articles -> {
-//            mArticleAdapter.addData(articles);
-            mArticleAdapter.addData(0,articles);
-            mViewDataBinding.smartRefresh.finishRefresh();
-            mViewDataBinding.smartRefresh.finishLoadMore();
-        });
-
-
         mViewDataBinding.smartRefresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-//                mViewModel.get;
-                mViewModel.loadArticleListData(0);
-            }
 
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-//                mViewModel.getArticleListData(0);
-                mViewModel.loadArticleListData(0);
+                mViewModel.refreshArticleListData().observe(getViewLifecycleOwner(), refreshArticle);
+            }
+
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                mViewModel.loadMoreArticleListData().observe(getViewLifecycleOwner(), loadArticle);
             }
         });
+
+        mViewDataBinding.smartRefresh.autoRefresh();
 
 
         Log.i(TAG, "onViewCreated: " + "requestData>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
@@ -87,6 +78,35 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         }
     }
 
+
+    Observer<Request<ArticleListData>> refreshArticle = new Observer<Request<ArticleListData>>() {
+
+        @Override
+        public void onChanged(Request<ArticleListData> request) {
+            if (request.getCode() == Request.Status.SUCCESS) {
+                mViewDataBinding.smartRefresh.finishRefresh(true);
+                mArticleAdapter.setList(request.getData().getDatas());
+                mViewModel.curPage.set(0);
+            } else {
+                mViewDataBinding.smartRefresh.finishRefresh(false);
+            }
+        }
+    };
+
+
+    Observer<Request<ArticleListData>> loadArticle = new Observer<Request<ArticleListData>>() {
+        @Override
+        public void onChanged(Request<ArticleListData> request) {
+            mViewDataBinding.smartRefresh.finishLoadMore();
+            if (request.getCode() == Request.Status.SUCCESS) {
+                mViewDataBinding.smartRefresh.finishLoadMore(true);
+                mArticleAdapter.addData(request.getData().getDatas());
+                mViewModel.curPage.set(request.getData().getCurPage());
+            } else {
+                mViewDataBinding.smartRefresh.finishLoadMore(false);
+            }
+        }
+    };
 
 
     @Override

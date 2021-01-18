@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.loogen.wanandroid.base.BaseModel;
 import com.loogen.wanandroid.base.BaseViewModel;
-import com.loogen.wanandroid.model.DataResult;
+import com.loogen.wanandroid.model.Request;
 import com.loogen.wanandroid.model.UserModel;
 import com.loogen.wanandroid.request.entity.LoginData;
 import com.loogen.wanandroid.request.entity.LogoutData;
@@ -25,51 +25,51 @@ public class LoginViewModel extends BaseViewModel<UserModel> {
 
     public void login() {
         loading.set(true);
-        model.login(username.getValue(), password.getValue(), new DataResult.IResult<LoginData>() {
+        model.login(username.getValue(), password.getValue(), new Request.IResult<LoginData>() {
             @Override
-            public void onSuccess(DataResult.Success<LoginData> data) {
+            public void onSuccess(Request<LoginData> data) {
                 loading.set(false);
                 loginData.setValue(data.getData());
             }
 
             @Override
-            public void onError(DataResult.Error error) {
+            public void onError(Request<LoginData> error) {
                 loading.set(false);
-                toastMsgData.setValue(error.getError());
+                toastMsgData.setValue(error.getMsg());
             }
         });
     }
 
     public void logout() {
         loading.set(true);
-        model.logout(new DataResult.IResult<LogoutData>() {
+        model.logout(new Request.IResult<LogoutData>() {
             @Override
-            public void onSuccess(DataResult.Success<LogoutData> data) {
+            public void onSuccess(Request<LogoutData> data) {
                 loading.set(false);
                 logoutData.setValue(data.getData());
             }
 
             @Override
-            public void onError(DataResult.Error error) {
+            public void onError(Request<LogoutData> error) {
                 loading.set(false);
-                toastMsgData.setValue(error.getError());
+                toastMsgData.setValue(error.getMsg());
             }
         });
     }
 
     public void register() {
         loading.set(true);
-        model.register(username.getValue(), password.getValue(), repassword.getValue(), new DataResult.IResult<RegisterData>() {
+        model.register(username.getValue(), password.getValue(), repassword.getValue(), new Request.IResult<RegisterData>() {
             @Override
-            public void onSuccess(DataResult.Success<RegisterData> data) {
+            public void onSuccess(Request<RegisterData> data) {
                 loading.set(false);
                 registerData.setValue(data.getData());
             }
 
             @Override
-            public void onError(DataResult.Error error) {
+            public void onError(Request<RegisterData> error) {
                 loading.set(false);
-                toastMsgData.setValue(error.getError());
+                toastMsgData.setValue(error.getMsg());
             }
         });
     }
