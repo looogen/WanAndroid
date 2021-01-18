@@ -1,15 +1,16 @@
 package com.loogen.wanandroid.ui.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.loogen.wanandroid.R;
+import com.loogen.wanandroid.base.BaseFragment;
+import com.loogen.wanandroid.base.DataBindingConfig;
 import com.loogen.wanandroid.databinding.FragmentRegisterBinding;
-import com.loogen.wanandroid.ui.base.BaseFragment;
-import com.loogen.wanandroid.ui.base.DataBindingConfig;
 import com.loogen.wanandroid.ui.state.AccountViewModel;
 import com.loogen.wanandroid.ui.state.RegisterViewModel;
 
@@ -24,6 +25,7 @@ public class RegisterFragment extends BaseFragment<FragmentRegisterBinding, Regi
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.i(TAG, "onViewCreated: ");
 
         AccountViewModel accountViewModel = getActivityViewModel(AccountViewModel.class);
 

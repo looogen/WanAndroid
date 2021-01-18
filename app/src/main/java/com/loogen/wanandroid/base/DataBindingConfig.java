@@ -1,4 +1,4 @@
-package com.loogen.wanandroid.ui.base;
+package com.loogen.wanandroid.base;
 
 import android.util.SparseArray;
 
@@ -8,10 +8,8 @@ import android.util.SparseArray;
 public class DataBindingConfig {
 
     private final int layout;
-
-    private int vmVariableId;
-
     private final SparseArray<Object> bindingParams = new SparseArray<>();
+    private int vmVariableId;
 
     public DataBindingConfig(int layout, int vmVariableId) {
         this.layout = layout;

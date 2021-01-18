@@ -1,5 +1,7 @@
 package com.loogen.wanandroid.ui.state;
 
-public class OpenProjectViewModel {
+import androidx.lifecycle.ViewModel;
+
+public class OpenProjectViewModel extends ViewModel {
     public static final String TAG = "OpenProjectViewModel";
 }

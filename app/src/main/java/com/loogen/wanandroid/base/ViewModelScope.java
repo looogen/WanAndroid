@@ -1,4 +1,4 @@
-package com.loogen.wanandroid.ui.base;
+package com.loogen.wanandroid.base;
 
 import androidx.annotation.IntDef;
 
@@ -7,9 +7,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import static com.loogen.wanandroid.ui.base.ViewModelScope.ACTIVITY_SCOPE;
-import static com.loogen.wanandroid.ui.base.ViewModelScope.APPLICATION_SCOPE;
-import static com.loogen.wanandroid.ui.base.ViewModelScope.FRAGMENT_SCOPE;
+import static com.loogen.wanandroid.base.ViewModelScope.ACTIVITY_SCOPE;
+import static com.loogen.wanandroid.base.ViewModelScope.APPLICATION_SCOPE;
+import static com.loogen.wanandroid.base.ViewModelScope.FRAGMENT_SCOPE;
 
 
 @IntDef({FRAGMENT_SCOPE, ACTIVITY_SCOPE, APPLICATION_SCOPE})

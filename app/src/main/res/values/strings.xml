@@ -10,7 +10,6 @@
     <string name="invalid_password">Password must be >5 characters</string>
 
 
-
     <!--account-->
     <string name="account_login_title">用户登录</string>
     <string name="account_register_title">用户注册</string>
@@ -20,9 +19,21 @@
     <string name="account_login_user_name">输入用户名</string>
     <string name="account_login_password">输入密码</string>
 
+    <!--首页-->
+    <string name="home_title">首页</string>
 
+    <!--公众号-->
+    <string name="subscribe_title">公众号</string>
 
-    <string name="navigation_home">首页</string>
+    <!--体系-->
+    <string name="sort_title">体系</string>
+
+    <!--开源项目-->
+    <string name="project_title">项目</string>
+
+    <!--我的-->
+    <string name="mine_title">我的</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

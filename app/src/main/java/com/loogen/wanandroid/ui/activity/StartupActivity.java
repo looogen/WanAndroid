@@ -3,14 +3,13 @@ package com.loogen.wanandroid.ui.activity;
 
 import android.content.Intent;
 import android.os.Handler;
-import android.widget.Toast;
 
 import com.loogen.wanandroid.R;
+import com.loogen.wanandroid.base.BaseActivity;
+import com.loogen.wanandroid.base.DataBindingConfig;
 import com.loogen.wanandroid.databinding.ActivityStartupBinding;
 import com.loogen.wanandroid.request.Constants;
 import com.loogen.wanandroid.request.cookie.PersistentCookieStore;
-import com.loogen.wanandroid.ui.base.BaseActivity;
-import com.loogen.wanandroid.ui.base.DataBindingConfig;
 import com.loogen.wanandroid.ui.state.StartupViewModel;
 
 import java.util.List;

@@ -19,8 +19,8 @@ public class OfflineCacheInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         if (!NetworkUtil.isNetworkAvailable(App.getApp())) {
-            Log.i(TAG, "intercept: "+"NetworkNotAvailable");
-            int offlineCacheTime = 60*60;//离线的时候的缓存的过期时间
+            Log.i(TAG, "intercept: " + "NetworkNotAvailable");
+            int offlineCacheTime = 60 * 60;//离线的时候的缓存的过期时间
             request = request.newBuilder()
                     .header("Cache-Control", "public, only-if-cached, max-stale=" + offlineCacheTime)
                     .build();

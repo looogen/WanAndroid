@@ -15,10 +15,10 @@ import androidx.navigation.Navigation;
 
 import com.loogen.wanandroid.BR;
 import com.loogen.wanandroid.R;
+import com.loogen.wanandroid.base.BaseFragment;
+import com.loogen.wanandroid.base.DataBindingConfig;
 import com.loogen.wanandroid.databinding.FragmentLoginBinding;
 import com.loogen.wanandroid.ui.activity.MainActivity;
-import com.loogen.wanandroid.ui.base.BaseFragment;
-import com.loogen.wanandroid.ui.base.DataBindingConfig;
 import com.loogen.wanandroid.ui.state.AccountViewModel;
 import com.loogen.wanandroid.ui.state.LoginViewModel;
 import com.loogen.wanandroid.ui.state.ShareViewModel;

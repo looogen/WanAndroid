@@ -2,17 +2,16 @@ package com.loogen.wanandroid.ui.state;
 
 import androidx.databinding.ObservableBoolean;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
+import com.loogen.wanandroid.base.BaseModel;
+import com.loogen.wanandroid.base.BaseViewModel;
 import com.loogen.wanandroid.model.DataResult;
 import com.loogen.wanandroid.model.UserModel;
 import com.loogen.wanandroid.request.entity.LoginData;
 import com.loogen.wanandroid.request.entity.LogoutData;
 import com.loogen.wanandroid.request.entity.RegisterData;
 
-public class LoginViewModel extends ViewModel {
-    private final UserModel model;
-
+public class LoginViewModel extends BaseViewModel<UserModel> {
     public final MutableLiveData<LoginData> loginData = new MutableLiveData<>();
     public final MutableLiveData<RegisterData> registerData = new MutableLiveData<>();
     public final MutableLiveData<LogoutData> logoutData = new MutableLiveData<>();
@@ -23,10 +22,6 @@ public class LoginViewModel extends ViewModel {
     public final MutableLiveData<String> username = new MutableLiveData<>();
     public final MutableLiveData<String> password = new MutableLiveData<>();
     public final MutableLiveData<String> repassword = new MutableLiveData<>();
-
-    public LoginViewModel() {
-        model = new UserModel();
-    }
 
     public void login() {
         loading.set(true);
@@ -80,8 +75,7 @@ public class LoginViewModel extends ViewModel {
     }
 
     @Override
-    protected void onCleared() {
-        super.onCleared();
-        model.onClear();
+    public BaseModel getModel() {
+        return new UserModel();
     }
 }

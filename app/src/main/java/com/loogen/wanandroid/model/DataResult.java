@@ -20,6 +20,12 @@ public class DataResult {
         return "";
     }
 
+    public interface IResult<T> {
+        void onSuccess(Success<T> data);
+
+        void onError(Error error);
+    }
+
     // Success sub-class
     public final static class Success<T> extends DataResult {
         private final T data;
@@ -44,10 +50,5 @@ public class DataResult {
         public String getError() {
             return error;
         }
-    }
-
-    public interface IResult<T>{
-        void onSuccess(Success<T> data);
-        void onError(Error error);
     }
 }

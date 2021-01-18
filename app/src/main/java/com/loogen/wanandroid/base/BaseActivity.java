@@ -1,4 +1,4 @@
-package com.loogen.wanandroid.ui.base;
+package com.loogen.wanandroid.base;
 
 import android.app.Activity;
 import android.app.Application;
@@ -19,15 +19,14 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 
-public abstract class BaseActivity<V extends ViewDataBinding,VM extends ViewModel> extends AppCompatActivity {
-
-    private ViewModelProvider mActivityProvider;
-    private ViewModelProvider.Factory mFactory;
+public abstract class BaseActivity<V extends ViewDataBinding, VM extends ViewModel> extends AppCompatActivity {
 
     protected V mViewDataBinding;
     protected VM mViewModel;
+    private ViewModelProvider mActivityProvider;
+    private ViewModelProvider.Factory mFactory;
 
-    protected VM initViewModel(){
+    protected VM initViewModel() {
         return null;
     }
 
@@ -36,7 +35,7 @@ public abstract class BaseActivity<V extends ViewDataBinding,VM extends ViewMode
 
     @ViewModelScope
     protected int getViewModelStoreScope() {
-        // viewModel生命周期默认跟随acitivity
+        // viewModel生命周期默认跟随activity
         return ViewModelScope.ACTIVITY_SCOPE;
     }
 
@@ -55,7 +54,7 @@ public abstract class BaseActivity<V extends ViewDataBinding,VM extends ViewMode
         mViewDataBinding.setLifecycleOwner(this);
 
         //create viewModel
-        mViewModel =  initViewModel();
+        mViewModel = initViewModel();
         if (mViewModel == null) {
             Class modelClass;
             Type type = getClass().getGenericSuperclass();
@@ -71,7 +70,7 @@ public abstract class BaseActivity<V extends ViewDataBinding,VM extends ViewMode
             }
         }
         if (dataBindingConfig.getVmVariableId() != 0) {
-            mViewDataBinding.setVariable(dataBindingConfig.getVmVariableId(),mViewModel);
+            mViewDataBinding.setVariable(dataBindingConfig.getVmVariableId(), mViewModel);
         }
 
         //other

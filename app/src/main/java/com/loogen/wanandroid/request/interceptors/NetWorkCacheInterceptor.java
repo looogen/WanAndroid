@@ -17,11 +17,11 @@ public class NetWorkCacheInterceptor implements Interceptor {
     //在线的时候的缓存过期时间，如果想要不缓存，直接时间设置为0
     private int onlineCacheTime = 0;
 
-    public NetWorkCacheInterceptor(int onlineCacheTime){
+    public NetWorkCacheInterceptor(int onlineCacheTime) {
         this.onlineCacheTime = onlineCacheTime;
     }
 
-    public NetWorkCacheInterceptor(){
+    public NetWorkCacheInterceptor() {
     }
 
     @Override
@@ -29,10 +29,10 @@ public class NetWorkCacheInterceptor implements Interceptor {
         Request request = chain.request();
         Response response = chain.proceed(request);
 
-        Log.i(TAG, "intercept: "+response.headers().toString());
+        Log.i(TAG, "intercept: " + response.headers().toString());
 
         return response.newBuilder()
-                .header("Cache-Control", "public, max-age="+onlineCacheTime)
+                .header("Cache-Control", "public, max-age=" + onlineCacheTime)
                 .removeHeader("Pragma")
                 .build();
     }

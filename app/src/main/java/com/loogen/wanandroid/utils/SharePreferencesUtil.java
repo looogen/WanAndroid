@@ -8,8 +8,8 @@ import com.loogen.wanandroid.App;
 
 /**
  * SP工具类
- *
- *
+ * <p>
+ * <p>
  * created by loogen on 2020-12-22
  */
 public class SharePreferencesUtil {
@@ -20,8 +20,8 @@ public class SharePreferencesUtil {
     public static final String NAME_COOKIES = "request_cookies";
 
 
-    public static void setCookies(String url,String value) {
-        setValue(NAME_COOKIES,url,value,false);
+    public static void setCookies(String url, String value) {
+        setValue(NAME_COOKIES, url, value, false);
     }
 
     public static String getCookies(String url) {
@@ -29,12 +29,12 @@ public class SharePreferencesUtil {
         return sp.getString(url, "");
     }
 
-    public static <T> void setValue(String key, T value,boolean commit) {
-        setValue(NAME_DEFAULT,key,value,commit);
+    public static <T> void setValue(String key, T value, boolean commit) {
+        setValue(NAME_DEFAULT, key, value, commit);
     }
 
     public static <T> void setValue(String key, T value) {
-        setValue(NAME_DEFAULT,key,value,false);
+        setValue(NAME_DEFAULT, key, value, false);
     }
 
     @SuppressLint("ApplySharedPref")
@@ -56,27 +56,27 @@ public class SharePreferencesUtil {
         }
         if (commit) {
             editor.commit();
-        }else {
+        } else {
             editor.apply();
         }
     }
 
     public static String getString(String key) {
-        return getString(NAME_DEFAULT,key);
+        return getString(NAME_DEFAULT, key);
     }
 
     public static String getString(String name, String key) {
         SharedPreferences sp = App.getApp().getSharedPreferences(name, Context.MODE_PRIVATE);
-        return sp.getString(key,"");
+        return sp.getString(key, "");
     }
 
     public static int getInt(String key) {
-        return getInt(NAME_DEFAULT,key);
+        return getInt(NAME_DEFAULT, key);
     }
 
     public static int getInt(String name, String key) {
         SharedPreferences sp = App.getApp().getSharedPreferences(name, Context.MODE_PRIVATE);
-        return sp.getInt(key,-999);
+        return sp.getInt(key, -999);
     }
 
 

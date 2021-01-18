@@ -31,18 +31,9 @@ import okhttp3.HttpUrl;
 public class PersistentCookieStore {
     private static final String TAG = "PersistentCookieStore";
     private static final String COOKIE_PREFS = "Cookies_Prefs";
-
+    private static PersistentCookieStore mInstance;
     private final Map<String, Map<String, Cookie>> cookies;
     private final SharedPreferences cookiePrefs;
-    private static PersistentCookieStore mInstance;
-
-    public static PersistentCookieStore getInstance() {
-        if (mInstance == null) {
-            mInstance = new PersistentCookieStore(App.getApp());
-        }
-        return mInstance;
-    }
-
 
     private PersistentCookieStore(Context context) {
         cookiePrefs = context.getSharedPreferences(COOKIE_PREFS, Context.MODE_PRIVATE);
@@ -65,6 +56,13 @@ public class PersistentCookieStore {
                 }
             }
         }
+    }
+
+    public static PersistentCookieStore getInstance() {
+        if (mInstance == null) {
+            mInstance = new PersistentCookieStore(App.getApp());
+        }
+        return mInstance;
     }
 
     protected String getCookieToken(Cookie cookie) {

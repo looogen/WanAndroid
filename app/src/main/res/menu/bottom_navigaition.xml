@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:icon="@drawable/ic_home_24"
-        android:title="@string/navigation_home"
-        android:id="@+id/home"
-        android:enabled="true"/>
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_home"
+        android:title="@string/home_title" />
     <item
-        android:icon="@drawable/ic_home_24"
-        android:title="@string/navigation_home"
-        android:id="@+id/list"
-        android:enabled="true"/>
+        android:id="@+id/subscriptionFragment"
+        android:icon="@drawable/ic_wechat"
+        android:title="@string/subscribe_title" />
     <item
-        android:icon="@drawable/ic_home_24"
-        android:title="@string/navigation_home"
-        android:id="@+id/list1"
-        android:enabled="true"/>
-    <item
+        android:id="@+id/sortFragment"
         android:enabled="true"
-        android:icon="@drawable/ic_home_24"
-        android:title="@string/navigation_home"
-        android:id="@+id/mine" />
+        android:icon="@drawable/ic_sort"
+        android:title="@string/sort_title" />
+    <item
+        android:id="@+id/openProjectFragment"
+        android:icon="@drawable/ic_open"
+        android:title="@string/project_title" />
+    <item
+        android:id="@+id/mineFragment"
+        android:icon="@drawable/ic_mine"
+        android:title="@string/mine_title" />
 </menu>

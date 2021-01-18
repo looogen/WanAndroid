@@ -1,10 +1,9 @@
-package com.loogen.wanandroid.ui.base;
+package com.loogen.wanandroid.base;
 
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;

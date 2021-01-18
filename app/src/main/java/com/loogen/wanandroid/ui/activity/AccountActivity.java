@@ -6,9 +6,9 @@ import androidx.navigation.Navigation;
 
 import com.loogen.wanandroid.BR;
 import com.loogen.wanandroid.R;
+import com.loogen.wanandroid.base.BaseActivity;
+import com.loogen.wanandroid.base.DataBindingConfig;
 import com.loogen.wanandroid.databinding.ActivityAccountBinding;
-import com.loogen.wanandroid.ui.base.BaseActivity;
-import com.loogen.wanandroid.ui.base.DataBindingConfig;
 import com.loogen.wanandroid.ui.state.AccountViewModel;
 
 public class AccountActivity extends BaseActivity<ActivityAccountBinding, AccountViewModel> {
@@ -17,7 +17,7 @@ public class AccountActivity extends BaseActivity<ActivityAccountBinding, Accoun
 
     @Override
     protected DataBindingConfig getDataBindingConfig() {
-      return new DataBindingConfig(R.layout.activity_account, BR.vm);
+        return new DataBindingConfig(R.layout.activity_account, BR.vm);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class AccountActivity extends BaseActivity<ActivityAccountBinding, Accoun
             if (!navController.popBackStack()) {
                 // Call finish() on your Activity
                 finish();
-            }else {
+            } else {
                 navController.navigateUp();
             }
         });

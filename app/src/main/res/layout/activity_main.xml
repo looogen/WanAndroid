@@ -15,23 +15,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.activity.MainActivity">
-        <include
-            android:id="@+id/toolbar_layout"
-            layout="@layout/layout_toolbar"
-            app:title="@{vm.title}"/>
         <FrameLayout
-            android:id="@+id/content"
+            android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:defaultNavHost="true"
+            android:layout_height="0dp"
+            app:layout_constraintVertical_weight="1"
             app:layout_constraintBottom_toTopOf="@id/navigation_bar"
-            app:layout_constraintTop_toBottomOf="@id/app_bar" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/navigation_bar"
             style="@style/Widget.MaterialComponents.BottomNavigationView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:labelVisibilityMode="labeled"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:menu="@menu/bottom_navigaition" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -19,7 +19,7 @@ public class VerifyCookieJar implements CookieJar {
 
     @Override
     public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
-        Log.i(TAG, "url" + url.toString());
+        Log.i(TAG, "saveFromResponse " + url.toString());
         //账号相关操作时去保存Cookies
         if (url.toString().contains("user/login") ||
                 url.toString().contains("user/register") ||
@@ -27,16 +27,16 @@ public class VerifyCookieJar implements CookieJar {
             PersistentCookieStore.getInstance().add(url, cookies);
         }
     }
-    
+
 
     @Override
     public List<Cookie> loadForRequest(HttpUrl url) {
-        Log.i(TAG, "url" + url.toString());
+        Log.i(TAG, "loadForRequest " + url.toString());
         if (!url.toString().contains("user/login") &&
                 !url.toString().contains("user/register") &&
                 !url.toString().contains("user/logout")) {
             return PersistentCookieStore.getInstance().get(url);
-        }else {
+        } else {
             return Collections.emptyList();
         }
     }

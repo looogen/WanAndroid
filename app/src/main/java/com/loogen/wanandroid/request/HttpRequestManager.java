@@ -64,7 +64,7 @@ public final class HttpRequestManager {
         builder.addInterceptor(new OfflineCacheInterceptor());
 
         //两分钟的缓存
-        builder.addNetworkInterceptor(new NetWorkCacheInterceptor(2*60));
+        builder.addNetworkInterceptor(new NetWorkCacheInterceptor(2 * 60));
         //cookie 验证用户身份
         builder.cookieJar(new VerifyCookieJar());
         return builder.build();

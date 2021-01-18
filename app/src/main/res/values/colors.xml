@@ -6,4 +6,7 @@
 
     <color name="gray">#F0F0F0</color>
     <color name="navigation_bg">#A5FFFFFF</color>
+
+    <color name="text_gray">#8E8E8E</color>
+    <color name="text_normal">#262626</color>
 </resources>
